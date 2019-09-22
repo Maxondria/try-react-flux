@@ -14,8 +14,33 @@ class CoursesPage extends Component {
     });
   }
 
+  renderRow(course) {
+    return (
+      <tr key={course.id}>
+        <td>{course.title}</td>
+        <td>{course.authorId}</td>
+        <td>{course.category}</td>
+      </tr>
+    );
+  }
+
   render() {
-    return <h2>Courses</h2>;
+    return (
+      <>
+        <h2>Courses</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <td>Title</td>
+              <td>Author's ID</td>
+              <td>Category</td>
+            </tr>
+          </thead>
+
+          <tbody>{this.state.courses.map(this.renderRow)}</tbody>
+        </table>
+      </>
+    );
   }
 }
 

@@ -1,20 +1,14 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { getCourses } from "../api/courseApi";
 
-class CoursesPage extends Component {
-  state = {
-    courses: []
-  };
+const CoursesPage = function() {
+  const [courses, setCourses] = useState([]);
 
-  async componentDidMount() {
-    const courses = await getCourses();
+  useEffect(() => {
+    getCourses().then(_courses => setCourses(_courses));
+  }, []);
 
-    this.setState({
-      courses
-    });
-  }
-
-  renderRow(course) {
+  const renderRow = course => {
     return (
       <tr key={course.id}>
         <td>{course.title}</td>
@@ -22,26 +16,24 @@ class CoursesPage extends Component {
         <td>{course.category}</td>
       </tr>
     );
-  }
+  };
 
-  render() {
-    return (
-      <>
-        <h2>Courses</h2>
-        <table className="table">
-          <thead>
-            <tr>
-              <td>Title</td>
-              <td>Author's ID</td>
-              <td>Category</td>
-            </tr>
-          </thead>
+  return (
+    <>
+      <h2>Courses</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <td>Title</td>
+            <td>Author's ID</td>
+            <td>Category</td>
+          </tr>
+        </thead>
 
-          <tbody>{this.state.courses.map(this.renderRow)}</tbody>
-        </table>
-      </>
-    );
-  }
-}
+        <tbody>{courses.map(renderRow)}</tbody>
+      </table>
+    </>
+  );
+};
 
 export default CoursesPage;

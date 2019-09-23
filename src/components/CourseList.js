@@ -11,6 +11,14 @@ const CourseList = function(props) {
         </td>
         <td>{course.authorId}</td>
         <td>{course.category}</td>
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick={() => props.deleteCourse(course.id)}
+          >
+            Delete
+          </button>
+        </td>
       </tr>
     );
   };
@@ -22,6 +30,7 @@ const CourseList = function(props) {
           <td>Title</td>
           <td>Author's ID</td>
           <td>Category</td>
+          <td>Delete Course</td>
         </tr>
       </thead>
       <tbody>{props.courses.map(renderRow)}</tbody>
@@ -37,7 +46,9 @@ CourseList.propTypes = {
       authorId: PropTypes.number.isRequired,
       category: PropTypes.string.isRequired
     })
-  ).isRequired
+  ).isRequired,
+
+  deleteCourse: PropTypes.func.isRequired
 };
 
 export default CourseList;

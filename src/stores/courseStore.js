@@ -1,6 +1,7 @@
 import { EventEmitter } from "events";
 import dispatcher from "../appDispatcher";
 import actionTypes from "../actions/actionTypes";
+import { toast } from "react-toastify";
 
 const CHANGE_EVENT = "change";
 
@@ -48,7 +49,17 @@ dispatcher.register(action => {
       );
       _courses.splice(updatedIndex, 1, action.course);
       store.emitChange();
-        break;
+      break;
+
+    case actionTypes.DELETE_COURSE:
+      _courses = _courses.filter(
+        course => course.id !== parseInt(action.id, 10)
+      );
+      store.emitChange();
+      toast.warn("🦄 Course Deleted!", {
+            position: "top-right"
+        });
+      break;
 
     default:
     /*Do Nothing*/

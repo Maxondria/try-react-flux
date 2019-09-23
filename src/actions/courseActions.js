@@ -21,3 +21,12 @@ export const loadCourses = function() {
     });
   });
 };
+
+export const deleteCourse = function(id) {
+  return courseApi.deleteCourse(id).then(() => {
+    dispatcher.dispatch({
+      actionType: actionTypes.DELETE_COURSE,
+      id
+    });
+  });
+};

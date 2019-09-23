@@ -9,11 +9,11 @@ const CoursesPage = function() {
 
   useEffect(() => {
     CourseStore.addChangeListener(onChange);
-    if (CourseStore.getCourses().length === 0) courseActions.loadCourses();
+    if (courses.length === 0) courseActions.loadCourses();
 
     //unmounting callback
     return () => CourseStore.removeChangeListener(onChange);
-  }, []);
+  }, [courses.length]);
 
   function onChange() {
     setCourses(CourseStore.getCourses());
@@ -25,7 +25,7 @@ const CoursesPage = function() {
       <Link className="btn btn-primary my-2 float-right" to="/course">
         Add Course
       </Link>
-      <CourseList courses={courses} />
+      <CourseList courses={courses} deleteCourse={courseActions.deleteCourse} />
     </>
   );
 };

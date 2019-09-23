@@ -19,7 +19,7 @@ class CourseStore extends EventEmitter {
     this.emit(CHANGE_EVENT);
   }
 
-  getCourse() {
+  getCourses() {
     return _courses;
   }
 

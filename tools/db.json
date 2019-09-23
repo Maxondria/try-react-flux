@@ -109,6 +109,22 @@
       "authorId": 2,
       "category": "Javascript",
       "createdAt": 1569228314235
+    },
+    {
+      "id": 16,
+      "slug": "flux",
+      "title": "Flux",
+      "authorId": 2,
+      "category": "Javascript",
+      "createdAt": 1569242643828
+    },
+    {
+      "id": 17,
+      "slug": "flux-confuses-a-bit",
+      "title": "Flux Confuses A Bit",
+      "authorId": 2,
+      "category": "Javascript",
+      "createdAt": 1569243313973
     }
   ],
   "authors": [

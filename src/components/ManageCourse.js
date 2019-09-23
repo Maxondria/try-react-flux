@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import CourseForm from "./CourseForm";
+import * as courseApi from "../api/courseApi";
+import { toast } from "react-toastify";
 
 const ManageCoursePage = function(props) {
   const [course, setCourse] = useState({
@@ -17,10 +19,24 @@ const ManageCoursePage = function(props) {
     });
   };
 
+  const handleSubmit = async event => {
+    event.preventDefault();
+    await courseApi.saveCourse(course);
+    props.history.push("/courses");
+
+    toast.success("🦄 Course Saved!", {
+      position: "top-right"
+    });
+  };
+
   return (
     <>
       <h2>Manage Course</h2>
-      <CourseForm course={course} onChange={handleChange} />
+      <CourseForm
+        course={course}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 };

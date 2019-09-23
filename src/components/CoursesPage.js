@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import CourseStore from "../stores/courseStore";
+import * as courseActions from "../actions/courseActions";
 import CourseList from "./CourseList";
 import { Link } from "react-router-dom";
 
 const CoursesPage = function() {
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState(CourseStore.getCourses());
 
   useEffect(() => {
-    setCourses(CourseStore.getCourses());
+    CourseStore.addChangeListener(onChange);
+    if (CourseStore.getCourses().length === 0) courseActions.loadCourses();
+
+    //unmounting callback
+    return () => CourseStore.removeChangeListener(onChange);
   }, []);
+
+  function onChange() {
+    setCourses(CourseStore.getCourses());
+  }
 
   return (
     <>

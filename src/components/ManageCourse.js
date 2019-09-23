@@ -6,6 +6,7 @@ import * as courseActions from "../actions/courseActions";
 
 const ManageCoursePage = function(props) {
   const [errors, setErrors] = useState({});
+  const [courses, setCourses] = useState(CourseStore.getCourses());
   const [course, setCourse] = useState({
     id: null,
     slug: "",
@@ -15,11 +16,20 @@ const ManageCoursePage = function(props) {
   });
 
   useEffect(() => {
+    CourseStore.addChangeListener(onChange);
     const slug = props.match.params.slug;
-    if (slug) {
+    if (courses.length === 0) {
+      courseActions.loadCourses();
+    } else if (slug) {
       setCourse(CourseStore.getCourseBySlug(slug));
     }
-  }, [props.match.params.slug]);
+    //on unmounting
+    return () => CourseStore.removeChangeListener(onChange);
+  }, [courses.length, props.match.params.slug]);
+
+  function onChange() {
+    setCourses(CourseStore.getCourses());
+  }
 
   const FormIsValid = () => {
     const _errors = {};

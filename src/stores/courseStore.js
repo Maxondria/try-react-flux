@@ -42,6 +42,14 @@ dispatcher.register(action => {
       store.emitChange();
       break;
 
+    case actionTypes.UPDATE_COURSE:
+      const updatedIndex = _courses.findIndex(
+        course => course.id === action.course.id
+      );
+      _courses.splice(updatedIndex, 1, action.course);
+      store.emitChange();
+        break;
+
     default:
     /*Do Nothing*/
   }

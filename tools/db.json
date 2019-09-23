@@ -101,6 +101,14 @@
       "authorId": 2,
       "category": "Javascript",
       "createdAt": 1569226994277
+    },
+    {
+      "id": 15,
+      "slug": "ember-js",
+      "title": "Ember JS",
+      "authorId": 2,
+      "category": "Javascript",
+      "createdAt": 1569228314235
     }
   ],
   "authors": [

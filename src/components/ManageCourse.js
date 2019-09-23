@@ -4,6 +4,7 @@ import * as courseApi from "../api/courseApi";
 import { toast } from "react-toastify";
 
 const ManageCoursePage = function(props) {
+  const [errors, setErrors] = useState({});
   const [course, setCourse] = useState({
     id: null,
     slug: "",
@@ -11,6 +12,19 @@ const ManageCoursePage = function(props) {
     authorId: null,
     category: ""
   });
+
+  const FormIsValid = () => {
+    const _errors = {};
+
+    if (!course.title) _errors.title = "Please provide a title";
+    if (!course.authorId) _errors.author = "Please choose an author";
+    if (!course.category) _errors.category = "Category is required";
+
+    setErrors(_errors);
+
+    //Form Valid if _errors has no properties
+    return Object.keys(_errors).length === 0;
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setCourse({
@@ -21,10 +35,12 @@ const ManageCoursePage = function(props) {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    if (!FormIsValid()) return;
+
     await courseApi.saveCourse(course);
     props.history.push("/courses");
 
-    toast.success("🦄 Course Saved!", {
+    return toast.success("🦄 Course Saved!", {
       position: "top-right"
     });
   };
@@ -33,6 +49,7 @@ const ManageCoursePage = function(props) {
     <>
       <h2>Manage Course</h2>
       <CourseForm
+        errors={errors}
         course={course}
         onChange={handleChange}
         onSubmit={handleSubmit}
